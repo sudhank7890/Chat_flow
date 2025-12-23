@@ -1,0 +1,90 @@
+import { X, Play } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+
+interface DemoModalProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+const demoVideos = [
+  {
+    id: 1,
+    title: "Getting Started with ChatFlow",
+    duration: "2:34",
+    thumbnail: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=225&fit=crop",
+    description: "Learn how to set up your account and start chatting in minutes.",
+  },
+  {
+    id: 2,
+    title: "Team Collaboration Features",
+    duration: "4:12",
+    thumbnail: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=225&fit=crop",
+    description: "Discover powerful team features like channels, mentions, and file sharing.",
+  },
+  {
+    id: 3,
+    title: "Security & Privacy Overview",
+    duration: "3:45",
+    thumbnail: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=225&fit=crop",
+    description: "See how we protect your data with end-to-end encryption.",
+  },
+];
+
+export function DemoModal({ open, onOpenChange }: DemoModalProps) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-4xl bg-card border-border">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold text-foreground">
+            Watch Demo Videos
+          </DialogTitle>
+        </DialogHeader>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+          {demoVideos.map((video) => (
+            <div
+              key={video.id}
+              className="group relative rounded-xl overflow-hidden border border-border bg-background/50 hover:border-primary/50 transition-all cursor-pointer"
+            >
+              <div className="relative aspect-video">
+                <img
+                  src={video.thumbnail}
+                  alt={video.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center glow">
+                    <Play className="w-6 h-6 text-primary-foreground ml-1" />
+                  </div>
+                </div>
+                <div className="absolute bottom-2 right-2 px-2 py-1 rounded bg-black/70 text-xs text-white">
+                  {video.duration}
+                </div>
+              </div>
+              
+              <div className="p-4">
+                <h3 className="font-semibold text-foreground mb-1 line-clamp-1">
+                  {video.title}
+                </h3>
+                <p className="text-sm text-muted-foreground line-clamp-2">
+                  {video.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/20">
+          <p className="text-center text-muted-foreground">
+            🎬 Click on any video to play. Full demo library available after sign up!
+          </p>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
